@@ -1,0 +1,28 @@
+.header {
+    background-color: #E7833DB2;
+    display: flex;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    border-radius: 20px;
+    justify-content: end;
+}
+
+.header__user-icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 115px;
+    padding: 10px 0px;
+}
+
+@media (max-width: 768px) {
+    .header {
+        justify-content: center; /* Centra los elementos del encabezado en pantallas más pequeñas */
+        border-radius: 0; /* Elimina el radio de borde en pantallas más pequeñas */
+    }
+    .header__user-icon {
+        margin-right: 5%; /* Ajuste de margen más pequeño en pantallas más pequeñas */
+    }
+}

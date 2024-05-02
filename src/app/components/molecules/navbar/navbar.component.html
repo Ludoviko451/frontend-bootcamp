@@ -1,0 +1,13 @@
+<button *ngIf="isMobile" (click)="toggleMenu()" class="menu-toggle">☰</button>
+
+<div class="nav--container" [ngClass]="{'mobile-menu': isMobile, 'show': showMenu}">
+    <img class="logo" [src]="route.ONCLASS" alt="On Class Logo">
+    <ul class="nav--items">
+        <li routerLink="/home" routerLinkActive="active-router">
+            <app-text className="text__nav_container" iconClass="fa-solid fa-house" text="Home"></app-text>
+        </li>
+        <li routerLink="/library" routerLinkActive="active-router">
+            <app-text className="text__nav_container" iconClass="fa-solid fa-bars" text="Library"></app-text>
+        </li>
+    </ul>
+</div>

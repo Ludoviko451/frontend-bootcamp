@@ -1,0 +1,13 @@
+.card {
+    width: 100%;
+    border-bottom: 5px solid #E7833D;
+    position: relative;
+    margin: 20px;
+}
+
+i {
+    position: absolute; /* Establece posición absoluta para el icono */
+    right: 10px; /* Coloca el icono 20px desde el borde derecho */
+    top: 1px;
+    font-size: 20px;
+  }

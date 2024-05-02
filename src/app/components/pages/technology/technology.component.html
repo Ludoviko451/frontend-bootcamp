@@ -1,0 +1,10 @@
+<div class="card-container">
+<app-card *ngFor="let technology of technologys()" title="{{technology.name}}" description="{{technology.description}}">
+</app-card>
+
+<button (click)="nextPage()"></button>
+
+<h1>hola </h1>
+
+<app-modal-form></app-modal-form>
+</div>
