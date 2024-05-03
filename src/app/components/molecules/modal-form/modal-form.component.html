@@ -1,13 +1,11 @@
-<div>
-    <form (ngSubmit)="submitForm()">
-        <label>
-            <app-input placeholder="Nombre de tecnología" name="name"></app-input>
-        </label>
+<div class="form-container">
+    <form class="form">
+        <app-text text="Crear {{type}}" className="form-container-title"></app-text>
+        <app-button (buttonClick)="closeModal()" className="close-button">X</app-button>
+        <app-input (valueChanged)="onNameChange($event)" text="Nombre" placeholder='Nombre de {{type}}' name="name"></app-input>
+        <app-input (valueChanged)="onDescriptionChange($event)" text="Descripcion" placeholder="Descripción de {{type}}" name="description"></app-input>
 
-        <label>
-            <app-input placeholder="Descripción de tecnología" name="description"></app-input>
-        </label>
-
-        <button type="submit">Enviar</button>
+        <app-button className="submit-button" (buttonClick)="onSubmit()">Crear</app-button>
     </form>
 </div>
+

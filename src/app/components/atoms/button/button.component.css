@@ -1,10 +1,44 @@
-button {
-    border: 2.5px solid black;
-    width: 100%;
-    
+.close-button{
+    border: 0;
+    position: relative;
+    color: #E7833D;
+    width: 30px;
+    height: 30px;
+    float: right;
 }
 
-button:hover{
+.submit-button{
+    border: 0;
+    border-radius: 20px;
+    width: 20%;
+    height: 50px;
+    display: flex;
+    margin: 0 auto;
+    color: white;
+    background-color:#E7833D;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.close-button:hover{
     cursor: pointer;
-    background-color: aliceblue;
+}
+
+.open-button {
+    border: 0;
+    border-radius: 20px;
+    width: 10%;
+    height: 50px;
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    color: white;
+    background-color:#E7833D;
+    font-weight: bold;
+}
+
+.open-button:hover{
+    cursor: pointer;
+
 }

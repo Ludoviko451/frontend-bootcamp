@@ -1,1 +1,4 @@
-<input [type]="type" [placeholder]="placeholder" [(ngModel)]="value">
+<label class="label-form">
+    <app-text [text]="text"></app-text>
+    <input class="input-form" [type]="type" [placeholder]="placeholder" (input)="onInputChange($event)">
+</label>

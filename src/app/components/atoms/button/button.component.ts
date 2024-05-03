@@ -11,6 +11,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
     @Output() buttonClick = new EventEmitter();
 
+    @Input() className: string = '';
 
     onClick(): void {
       this.buttonClick.emit();
