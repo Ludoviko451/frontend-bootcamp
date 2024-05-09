@@ -7,18 +7,3 @@
   padding: 0;
 }
 
-
-.menu--item a {
-  text-decoration: none;
-  padding: 10px 20px;
-  display: block; /* Convertir enlace en bloque para ocupar todo el espacio del li */
-}
-
-.menu--item:hover {
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
-  border-bottom: 3px solid #E7833D;
-}
-
-.menu--item:hover a {
-  box-shadow: 0px 5px 5px rgba(231, 131, 61, 0.4);
-}

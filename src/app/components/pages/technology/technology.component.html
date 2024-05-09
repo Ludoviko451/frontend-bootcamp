@@ -1,15 +1,54 @@
-<div class="card-container">
-<app-card *ngFor="let technology of technologys()" title="{{technology.name}}" description="{{technology.description}}">
-</app-card>
+<div class="main">
+    <div class="options-container">
+        <select (change)="changeSize($event)">
+            <option value="10">10 - por pagina</option>
+            <option value="20">20 - por pagina</option>
+            <option value="50">50 - por pagina</option>
+        </select>
+    </div>
+
+    <div class="card-container">
+
+
+        @if(errorMessage){
+            <div class="message">
+                <p>{{errorMessage}}</p>
+            </div>
+        }
+
+    @if (technologyList$ | async ; as technologys) {
+        @for(item of technologys; track item.name) {
+            <app-card title="{{item.name}}" description="{{item.description}}" ></app-card>
+        }
+    }
+    </div>
 
 
 
-<app-button (buttonClick)="openModal()" className="open-button">+ Crear</app-button>
-<app-button (buttonClick)="nextPage()"> Siguiente</app-button>
-<app-button (buttonClick)="previousPage()">Anterior</app-button>
+
+    
+    <app-modal-message [isSuccessful]="technologyCreated" [text]="text"> </app-modal-message>
 
 
-<div *ngIf="modalSwitch == true">
-    <app-modal-form></app-modal-form>
+    <!-- <app-button (buttonClick)="nextPage()"> Siguiente</app-button>
+    <app-button (buttonClick)="previousPage()">Anterior</app-button> -->
+
+
+    <div  class="bottom-container">
+        <div class="bottom-container--button">
+        <app-button (buttonClick)="openModal()" className="open-button">+ Crear</app-button>
+        </div>
+
+        <div class="pagination-container">
+            <app-button *ngFor="let item of numberOfPages; index as i" (buttonClick)="changePage(i)" [className]=getPaginationClass(i)>{{i + 1}}</app-button>
+            <app-button className="pagination-button" (buttonClick)="nextPage()">></app-button>
+        </div>
+        
+    </div>
+
+    <div *ngIf="modalSwitch == true">
+        <app-modal-form></app-modal-form>
+    </div>
 </div>
-</div>
+
+

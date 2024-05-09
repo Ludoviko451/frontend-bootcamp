@@ -1,10 +1,25 @@
 .card {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 95%; /* Ancho inicial del contenedor */
     border-bottom: 5px solid #E7833D;
     position: relative;
     margin: 20px;
+    
+    animation: mover 0.2s ease-in-out; /* Aplica la animación */
 }
 
+@keyframes mover {
+    0% {
+      transform: translateX(0); /* Comienza sin traslado horizontal */
+    }
+    50% {
+      transform: translateX(100px); /* Mueve 200px a la derecha */
+    }
+    100% {
+      transform: translateX(0); /* Vuelve a la posición original */
+    }
+  }
 i {
     position: absolute; /* Establece posición absoluta para el icono */
     right: 10px; /* Coloca el icono 20px desde el borde derecho */

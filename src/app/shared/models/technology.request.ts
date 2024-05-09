@@ -1,4 +1,4 @@
 export interface ITechnologyRequest {
-    name: string;
-    description: string;
+    name: any,
+    description: any
 }

@@ -13,6 +13,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
     @Input() className: string = '';
 
+    @Input() disabled: boolean = false;
+    
+    @Input() class = ''; 
+
     onClick(): void {
       this.buttonClick.emit();
     }
