@@ -1,5 +1,5 @@
 <ul class="menu">
     @for(obj of info; track obj.name){
-        <app-menu-item routerLink="{{obj.url}}" text="{{obj.name}}"></app-menu-item>
+        <app-menu-item routerLink="{{obj.url}}" text="{{obj.name}}" routerLinkActive="active"></app-menu-item>
     }
 </ul>

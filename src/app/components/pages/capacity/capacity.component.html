@@ -1,1 +1,44 @@
-<p>capacity works!</p>
+<main class="main">
+
+
+    <div class="options-container">
+        <app-button (buttonClick)="changeOrder()" className="open-button ">{{this.order}}</app-button>
+        <app-size-changer (sizeChanged)="onSizeChanged($event)"></app-size-changer>
+    </div>
+
+    <div class="card-container">
+
+    @if (capacityList$ | async ; as capacities) {
+        @for(item of capacities; track item.name) {
+            <app-card title="{{item.name}}" description="{{item.description}}" ></app-card>
+        }
+    }
+    </div>
+
+
+    
+
+    @if(errorMessage.status === 0 || errorMessage.status === 404){
+        <div class="message">
+            <app-text text="{{errorMessage.message}}"></app-text>
+        </div>
+    }
+
+    <app-modal-message [isSuccessful]="postResponse.status > 300 ? false : true"  text="{{text}}"></app-modal-message>
+
+
+    <div  class="bottom-container">
+        <div class="bottom-container--button">
+            <app-button (buttonClick)="openModal()" className="open-button">+ Crear</app-button>
+        </div>      
+        <div class="bottom-container--pagination">
+            <app-pagination (pageChanged)="onPageChanged($event)"></app-pagination>
+        </div>  
+    </div>
+
+    <div *ngIf="modalSwitch == true">
+        <app-modal-form type="Capacidad"></app-modal-form>
+    </div>
+</main>
+
+

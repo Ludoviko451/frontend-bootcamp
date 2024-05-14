@@ -11,14 +11,36 @@ export class CapacityService {
     public capacities = signal<ITechnology[]>([])
     private readonly _http = inject(HttpClient);
     private readonly _endpoint = environment.apiCapacity;
+    page = 0;
 
+    size = 10;
+
+    order = "asc";
+
+    public changeOrder() {
+
+        if(this.order === "desc") {
+            this.order = "asc";
+          }
+        else {
+            this.order = "desc";
+        }
+    }
+
+    public changePage(page: number) {
+        this.page = page
+    }
+
+    public changeSize(size: number){
+        this.size = size
+    }
+
+
+    
     constructor() {
         this.getCapacities();
     }
     public getCapacities() {
-        this._http.get<ICapacity[]>(`${this._endpoint}?page=0&size=10&sortBy=asc&technologies=true&field=id`)
-        .pipe(tap((data:ICapacity[]) => this.capacities.set(data)))
-        .subscribe();
+        return this._http.get<ICapacity[]>(`${this._endpoint}?page=${this.page}&size=${this.size}&sortBy=${this.order}&technologies=true&field=name`)
     }
-
 }

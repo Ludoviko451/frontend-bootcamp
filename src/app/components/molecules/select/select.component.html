@@ -1,0 +1,19 @@
+<div>
+    <div>
+        //Mostrar agregados
+    </div>
+
+
+    <div class="add-container">
+        <app-button (buttonClick)="openSelect()">+</app-button>
+    </div>
+
+    <div *ngIf="(technologyList$ | async) as technologies">
+        <ul>
+          <li *ngFor="let tech of technologies">
+            {{ tech.name }} - {{ tech.description }}
+          </li>
+        </ul>
+      </div>
+      
+</div>

@@ -20,6 +20,20 @@ export class NavbarComponent {
         this.checkScreenWidth();
     }
 
+    routes = [
+
+        {
+            name: "Home",
+            url : "/home",
+            icon: "fa-solid fa-house",
+        },
+        {
+            name: "Library",
+            url : "/library",
+            icon: "fa-solid fa-bars"
+        }
+    ]
+
     @HostListener('window:resize', ['$event'])
     onResize(event: any) {
         this.checkScreenWidth();

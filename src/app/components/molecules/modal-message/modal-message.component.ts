@@ -17,7 +17,7 @@ export class ModalMessageComponent implements OnInit{
     constructor(private modalSS:SwitchService) {
         
     }
-    @Input () isSuccessful: boolean = false;
+    @Input () isSuccessful: boolean | null = false;
     @Input () alt: string = '';
     @Input () text: string = '';
 

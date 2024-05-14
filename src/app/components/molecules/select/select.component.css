@@ -1,0 +1,9 @@
+.data-container{
+
+    width: 300px;
+    height: 300px;
+}
+
+.data-container--disabled{
+    display: none;
+}

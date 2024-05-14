@@ -22,8 +22,12 @@
             </div>
         </app-input>
 
+        @if(type == "Capacidad"){
+            <app-input text="Tecnologias">
+                <app-select [type]="type"></app-select>
+            </app-input>
+        }
         <app-button className="submit-button {{ formCreate.invalid ? 'submit-button__disabled' : '' }}" (buttonClick)="onSubmit()" [disabled]="formCreate.invalid">Crear</app-button>
     </form>
 </div>
 
-{{formCreate.value}}

@@ -1,6 +1,7 @@
 export enum RouteImages {
-    ONCLASS = './assets/images/onClassLogo.png',
-    USERICON= './assets/images/userIcon.png',
+    ONCLASS = './assets/images/onClassLogo.svg',
+    USERICON= './assets/images/userIcon.svg',
     SUCCESS= './assets/images/success.svg',
-    ERROR = './assets/images/error.svg'
+    ERROR = './assets/images/error.svg',
+    ARROW = './assets/images/orangeArrow.svg'
 }

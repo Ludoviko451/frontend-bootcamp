@@ -1,0 +1,5 @@
+<div class="pagination-container">
+    <app-button className="pagination-button" (buttonClick)="goToPrev()" [disabled]="currentPage === 1"><</app-button>
+    <app-button *ngFor="let item of displayedPages;" (buttonClick)="onPageClick(item)" [className]=getPaginationClass(item)>{{item}}</app-button>
+    <app-button className="pagination-button" (buttonClick)="goToNext()">></app-button>
+</div>

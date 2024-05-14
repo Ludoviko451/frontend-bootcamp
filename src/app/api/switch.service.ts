@@ -8,7 +8,8 @@ export class SwitchService {
     
     
     $modal = new EventEmitter<any>();
+    $modalCapacity = new EventEmitter<any>();
     $modalMessage = new EventEmitter<any>();
-    $created = new EventEmitter<any>();
+    $postTechnology = new EventEmitter<any>();
     
 }

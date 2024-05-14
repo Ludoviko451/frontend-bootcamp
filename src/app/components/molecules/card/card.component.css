@@ -4,8 +4,7 @@
     width: 95%; /* Ancho inicial del contenedor */
     border-bottom: 5px solid #E7833D;
     position: relative;
-    margin: 20px;
-    
+    margin: 20px; 
     animation: mover 0.2s ease-in-out; /* Aplica la animación */
 }
 

@@ -47,12 +47,16 @@
     border-radius: 20px;
 }
 
-.nav--container app-text:hover {
+.navbar-item{
+    width: 100%;
+    margin: 10px;
+    border-radius: 10px;
+    &:hover{
     background-color: #E7833D66;
     transition: 0.3s background-color ease-in-out;
     cursor: pointer;
 }
-
+}
 .menu-toggle {
     display: block;
     position: fixed;

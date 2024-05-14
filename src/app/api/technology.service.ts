@@ -5,6 +5,7 @@ import { environment } from '../environments/environmen.development';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { ITechnologyRequest } from '../shared/models/technology.request';
 import { SwitchService } from './switch.service';
+import { Response } from '../shared/models/response';
 
 @Injectable({providedIn: 'root'})
 export class TechnologyService {
@@ -12,8 +13,12 @@ export class TechnologyService {
     public technologys = signal<ITechnology[]>([])
     private readonly _http = inject(HttpClient);
     private readonly _endpoint = environment.apiTechnology;
-    private size = 3;
+    private size = 10;
     public page = 0;
+    public order = "desc"
+
+    
+    public postResponse:Response = {} as Response;
     constructor(private modalSS: SwitchService) {
         this.getTechnologies();
     }
@@ -23,8 +28,14 @@ export class TechnologyService {
         this.size = size;
     }
 
-    public nextPage(){
-        this.page = this.page + 1
+    public changeOrder() {
+
+        if(this.order === "desc") {
+            this.order = "asc";
+          }
+        else {
+            this.order = "desc";
+        }
     }
     public changePage(page: number) {
 
@@ -32,19 +43,21 @@ export class TechnologyService {
     }
     public getTechnologies(): Observable<ITechnology[]>{
 
-      return this._http.get<ITechnology[]>(`${this._endpoint}?page=${this.page}&size=${this.size}&sortBy=desc&field=name`)
+      return this._http.get<ITechnology[]>(`${this._endpoint}?page=${this.page}&size=${this.size}&sortBy=${this.order}&field=name`)
     }
 
     public postTechnology(newTechnology: ITechnologyRequest): void {
         this._http.post<ITechnologyRequest>(this._endpoint, newTechnology)
           .subscribe({
             next: (createdTechnology: ITechnologyRequest) => {
-              console.log('Technology created successfully:', createdTechnology);
-              this.modalSS.$created.emit('success');
+              this.modalSS.$postTechnology.next(createdTechnology)
+              this.postResponse.status = 201
+              this.postResponse.message = "¡Tecnologia Creada!"
+              this.modalSS.$postTechnology.next(this.postResponse)
             },
             error: (error) => {
-              console.error(error);
-              this.modalSS.$created.emit(error);
+              this.postResponse = error
+              this.modalSS.$postTechnology.next(this.postResponse)
             }
           });
       }

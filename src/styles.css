@@ -1,1 +1,123 @@
 /* You can add global styles to this file, and also import other style files */
+app-capacity, app-technology {
+    width: 90%;
+}
+
+/* Contenedor principal */
+.main {
+    display: grid;
+    margin: 20px auto;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 0.1fr 1fr 4fr 1fr;
+    width: 100%; /* Ancho del contenedor principal al 100% para ser responsive */
+    grid-template-areas:
+        ". . options" 
+        "card card card"
+        "card card card"
+        ".  . bottom";
+    height: auto; /* Altura automática para ajustarse al contenido */
+    position: relative;
+    padding-right: 20px;
+
+}
+
+/* Contenedor principal de la tarjeta */
+.card-container {
+    grid-area: card;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+    max-height: 600px; /* Altura máxima de la tarjeta para evitar desbordamientos */
+    margin-bottom: 30px;
+    box-sizing: border-box;
+    overflow-x: auto;
+}
+
+/* Contenedor de opciones */
+.options-container {
+
+    grid-area: options;
+    display: flex;
+    gap: 150px;
+    justify-content: start;
+    width: 100%;
+    flex-direction: row;
+}
+
+/* Contenedor inferior */
+.bottom-container { 
+    grid-area: bottom;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.bottom-container--button {
+    width: 30%;
+    height: 50px;
+}
+
+/* Lista no ordenada */
+ul {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+}
+
+/* Elementos de la lista */
+li {
+    margin: 10px;
+    list-style-type: none;
+}
+
+/* Contenedor de paginación */
+.bottom-container--pagination {
+    margin-top: 40px;
+}
+
+.message {
+    grid-row: 3;
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.size-select {
+    border: 5px;
+    border-radius: 20px;
+    color: #E7833D;
+    font-weight: bold;
+}
+
+.size-select:focus {
+    background-color: white;
+}
+
+.size-select::-ms-value {
+    background: none;
+    color: #42413D;
+}
+
+@media (max-width: 768px) {
+    .main {
+        grid-template-areas: 
+            "card card"
+            "card card"
+            "options bottom";
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto auto auto;
+        height: auto;
+    }
+
+    .card-container {
+        width: 100%; /* Ocupa el ancho completo en pantallas pequeñas */
+        height: 300px;
+    }
+
+    .options-container {
+        justify-content: flex-start;
+    }
+}

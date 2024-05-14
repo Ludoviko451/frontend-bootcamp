@@ -13,15 +13,15 @@ export class MenuComponent {
 
     info = [
         {
-            name: "Technology",
+            name: "Tecnologías",
             url: "/library/technology"
         },
         {
-            name: "Capacity",
+            name: "Capacidades",
             url: "/library/capacity"
         },
         {
-            name: "Bootcamp",
+            name: "Bootcamps",
             url: "/library/bootcamp"
         }
     ]

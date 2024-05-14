@@ -1,54 +1,44 @@
-<div class="main">
+<main class="main">
+
+
     <div class="options-container">
-        <select (change)="changeSize($event)">
-            <option value="10">10 - por pagina</option>
-            <option value="20">20 - por pagina</option>
-            <option value="50">50 - por pagina</option>
-        </select>
+        <app-button (buttonClick)="changeOrder()" className="open-button ">{{this.order}}</app-button>
+        <app-size-changer (sizeChanged)="onSizeChanged($event)"></app-size-changer>
     </div>
 
     <div class="card-container">
 
-
-        @if(errorMessage){
-            <div class="message">
-                <p>{{errorMessage}}</p>
-            </div>
-        }
-
-    @if (technologyList$ | async ; as technologys) {
-        @for(item of technologys; track item.name) {
+    @if (technologyList$ | async ; as technologies) {
+        @for(item of technologies; track item.name) {
             <app-card title="{{item.name}}" description="{{item.description}}" ></app-card>
         }
     }
     </div>
 
 
-
-
     
-    <app-modal-message [isSuccessful]="technologyCreated" [text]="text"> </app-modal-message>
 
+    @if(errorMessage.status === 0 || errorMessage.status === 404){
+        <div class="message">
+            <app-text text="{{errorMessage.message}}"></app-text>
+        </div>
+    }
 
-    <!-- <app-button (buttonClick)="nextPage()"> Siguiente</app-button>
-    <app-button (buttonClick)="previousPage()">Anterior</app-button> -->
+    <app-modal-message [isSuccessful]="postResponse.status > 300 ? false : true"  text="{{text}}"></app-modal-message>
 
 
     <div  class="bottom-container">
         <div class="bottom-container--button">
-        <app-button (buttonClick)="openModal()" className="open-button">+ Crear</app-button>
-        </div>
-
-        <div class="pagination-container">
-            <app-button *ngFor="let item of numberOfPages; index as i" (buttonClick)="changePage(i)" [className]=getPaginationClass(i)>{{i + 1}}</app-button>
-            <app-button className="pagination-button" (buttonClick)="nextPage()">></app-button>
-        </div>
-        
+            <app-button (buttonClick)="openModal()" className="open-button">+ Crear</app-button>
+        </div>      
+        <div class="bottom-container--pagination">
+            <app-pagination (pageChanged)="onPageChanged($event)"></app-pagination>
+        </div>  
     </div>
 
     <div *ngIf="modalSwitch == true">
-        <app-modal-form></app-modal-form>
+        <app-modal-form type="Capacidad"></app-modal-form>
     </div>
-</div>
+</main>
 
 

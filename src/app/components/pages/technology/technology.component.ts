@@ -1,4 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Response } from './../../../shared/models/response';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CardComponent } from "../../molecules/card/card.component";
 import { TechnologyService } from '../../../api/technology.service';
 import { CommonModule } from '@angular/common';
@@ -10,19 +11,21 @@ import { ITechnology } from '../../../shared/models/technology.interface';
 import { AsyncPipe } from '@angular/common';
 import { ModalMessageComponent } from '../../molecules/modal-message/modal-message.component';
 import { PaginationComponent } from "../../molecules/pagination/pagination.component";
+import { TextComponent } from "../../atoms/text/text.component";
+import { SizeChangerComponent } from "../../molecules/size-changer/size-changer.component";
 @Component({
     selector: 'app-technology',
     standalone: true,
     templateUrl: './technology.component.html',
     styleUrl: './technology.component.css',
-    imports: [CardComponent, CommonModule, ButtonComponent, ModalFormComponent, AsyncPipe, ModalMessageComponent, PaginationComponent]
+    imports: [CardComponent, CommonModule, ButtonComponent, ModalFormComponent, AsyncPipe, ModalMessageComponent, PaginationComponent, TextComponent, SizeChangerComponent]
 })
-export class TechnologyComponent implements OnInit{
+export class TechnologyComponent implements OnInit, OnDestroy{
 
     constructor(private modalSS: SwitchService, private technologySvc: TechnologyService) {
     }
 
-    public errorMessage = '';
+
     
     public technologyList$!: Observable<ITechnology[]>;
 
@@ -30,39 +33,58 @@ export class TechnologyComponent implements OnInit{
 
     modalSwitch:boolean = false;
 
-    type:string = "Tecnologia"
-
-    technologyCreated: boolean = false ;
     
-    isLoading = false;
     text:string = ""
 
     size: number = 10
 
     currentPage = 0
 
+    asc: string = "Asc 🡩"
+  
+    desc: string = "Desc 🡫"
+  
+    order: string = this.desc;
     numberOfPages = new Array(3);
+
+    
+    options = [
+        { value: '10', label: '10 - por página' },
+        { value: '20', label: '20 - por página' },
+        { value: '50', label: '50 - por página' }
+      ];
+
+      postResponse:Response = {} as Response;
+
+
+      errorMessage:Response = {} as Response;
+
 
     //Tenemos que escuchar el valor de nuestro observable
 
     ngOnInit(): void {
         //Metodo subscribe significa escuchar y obtener ese valor
         this.modalSS.$modal.subscribe((valor) => this.modalSwitch = valor);
+        this.modalSS.$postTechnology.subscribe((postResponse) => {
+            this.text = '';
+            this.postResponse = {} as Response;
+            
+            this.postResponse = postResponse;
+            this.text = postResponse.message;
+          });
+      
 
         this.loadTechnologyList();
+    }
 
-        this.modalSS.$created.subscribe((valor) => {
- 
-            if(valor === "success"){
-                this.technologyCreated = true;
-                this.text = "Tecnologia creada"
-                this.loadTechnologyList()
-            } else {
-                this.technologyCreated = false;
-                this.text = valor
-            }
-          });
-
+    changeOrder(){
+        if(this.order === this.desc){
+            this.order = this.asc;
+        } else {
+            this.order = this.desc;
+        }
+        this.technologySvc.changeOrder();
+        this.loadTechnologyList();
     }
 
     getPaginationClass(page: number){
@@ -72,26 +94,23 @@ export class TechnologyComponent implements OnInit{
             return "pagination-button"
         }
     }
-    changeSize(event: Event){ 
-        const target = event.target as HTMLSelectElement
-        this.size = Number(target.value)
-        this.technologySvc.changeSize(this.size)
-        this.loadTechnologyList();
+    onSizeChanged(size: number){ 
+        this.size = size;
+        this.technologySvc.changeSize(size);
+        this.loadTechnologyList()
     }
     
+    onPageChanged(pageNumber: number): void {
+        console.log(this.errorMessage.status)
+        if (this.errorMessage.status === 0 || this.errorMessage.status === 404) {
+            this.currentPage--;
+        } else {
+            this.currentPage = pageNumber;
+        }
 
-    nextPage(){
-        this.currentPage = this.currentPage + 1
-        this.errorMessage = '';
-        this.technologySvc.nextPage();
+        this.technologySvc.page = this.currentPage
         this.loadTechnologyList();
-    }
-    changePage(page : number) {
-        this.currentPage = page
-        this.errorMessage = '';
-        this.technologySvc.changePage(page)
-        this.loadTechnologyList();
-    }
+      }
 
     private loadTechnologyList(): void {
         this.technologyList$ = this.technologySvc.getTechnologies().pipe(
@@ -105,4 +124,9 @@ export class TechnologyComponent implements OnInit{
     openModal(): void{
         this.modalSwitch = true;
     }
+
+    ngOnDestroy(): void {
+        // Cancelar la suscripción para evitar fugas de memoria
+        this.modalSS.$postTechnology.unsubscribe();
+      }
 }
