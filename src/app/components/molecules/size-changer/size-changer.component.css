@@ -16,6 +16,7 @@
     height: 20px;
 }
 .options-container{
+    background-color: white;
     width: 150px;
     margin-top: 25px;
     border: 3px solid #E7833D;
@@ -36,7 +37,13 @@
 .options-container--item{
 
     list-style: none;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    height: 40px;
+    font-size: 16px;
+    padding: 10px;
     &:hover{
 
         cursor: pointer;

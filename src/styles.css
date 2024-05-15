@@ -8,7 +8,7 @@ app-capacity, app-technology {
     display: grid;
     margin: 20px auto;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 0.1fr 1fr 4fr 1fr;
+    grid-template-rows: 1fr 1fr 4fr 1fr;
     width: 100%; /* Ancho del contenedor principal al 100% para ser responsive */
     grid-template-areas:
         ". . options" 
@@ -26,7 +26,7 @@ app-capacity, app-technology {
     grid-area: card;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 90%;
     margin: 0 auto;
     max-height: 600px; /* Altura máxima de la tarjeta para evitar desbordamientos */
     margin-bottom: 30px;
@@ -38,15 +38,15 @@ app-capacity, app-technology {
 .options-container {
 
     grid-area: options;
+    
     display: flex;
-    gap: 150px;
     justify-content: start;
-    width: 100%;
     flex-direction: row;
 }
 
 /* Contenedor inferior */
 .bottom-container { 
+
     grid-area: bottom;
     display: flex;
     align-items: center;
@@ -76,6 +76,15 @@ li {
     margin-top: 40px;
 }
 
+.options-container--button{
+    width: 100px;
+    height: 50%;
+}
+
+.options-container--size {
+    margin-left: 100px;
+    z-index: 1;
+}
 .message {
     grid-row: 3;
     grid-column: 2;

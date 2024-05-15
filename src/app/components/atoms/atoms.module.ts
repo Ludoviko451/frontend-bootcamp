@@ -1,14 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button/button.component';
+import { InputComponent } from './input/input.component';
+import { TextComponent } from './text/text.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [    
+    ButtonComponent,
+    HeaderComponent,
+    TextComponent
+  ],
   imports: [
     CommonModule,
-    ButtonComponent
+  ],
+
+  exports: [
+    ButtonComponent,
+    HeaderComponent,
+    TextComponent
   ]
 })
 export class AtomsModule { }

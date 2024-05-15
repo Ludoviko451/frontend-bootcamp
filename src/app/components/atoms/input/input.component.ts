@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TextComponent } from "../text/text.component";
+import { AtomsModule } from '../atoms.module';
 @Component({
     selector: 'app-input',
     standalone: true,
     templateUrl: './input.component.html',
     styleUrl: './input.component.css',
-    imports: [FormsModule, TextComponent]
+    imports: [FormsModule, AtomsModule]
 })
 export class InputComponent {
 

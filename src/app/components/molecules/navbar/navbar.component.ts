@@ -4,12 +4,13 @@ import { Router, RouterModule } from '@angular/router';
 import { TextComponent } from "../../atoms/text/text.component";
 import {RouteImages} from "../../../util/route.images";
 import { CommonModule } from '@angular/common';
+import { AtomsModule } from '../../atoms/atoms.module';
 @Component({
     selector: 'app-navbar',
     standalone: true,
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.css',
-    imports: [ButtonComponent, TextComponent, CommonModule, RouterModule]
+    imports: [AtomsModule, CommonModule, RouterModule]
 })
 export class NavbarComponent {
     route = RouteImages;

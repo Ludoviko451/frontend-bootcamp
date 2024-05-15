@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { TextComponent } from "../../atoms/text/text.component";
+
 import { RouterModule } from '@angular/router';
 import { MenuItemComponent } from "../menu-item/menu-item.component";
+import { AtomsModule } from '../../atoms/atoms.module';
 @Component({
     selector: 'app-menu',
     standalone: true,
     templateUrl: './menu.component.html',
     styleUrl: './menu.component.css',
-    imports: [TextComponent, RouterModule, MenuItemComponent]
+    imports: [AtomsModule, RouterModule, MenuItemComponent]
 })
 export class MenuComponent {
 

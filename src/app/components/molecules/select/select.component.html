@@ -1,19 +1,18 @@
 <div>
-    <div>
-        //Mostrar agregados
-    </div>
-
-
     <div class="add-container">
+
+        @if(technologys){
+            @for(item of technologys; track item.name) {
+                <li class="add-container--item">{{item.name}}</li>
+            }
+        }
         <app-button (buttonClick)="openSelect()">+</app-button>
     </div>
-
-    <div *ngIf="(technologyList$ | async) as technologies">
-        <ul>
-          <li *ngFor="let tech of technologies">
-            {{ tech.name }} - {{ tech.description }}
+    <div *ngIf="(technologyList$ | async) as technologies" class={{dataContainer}}>
+        <ul class="data-container--list">
+          <li *ngFor="let tech of technologies" (click)="addElement(tech)" class="data-container--item">
+              {{ tech.name }}
           </li>
         </ul>
       </div>
-      
 </div>

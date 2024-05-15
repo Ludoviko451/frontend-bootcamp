@@ -24,8 +24,13 @@
 
         @if(type == "Capacidad"){
             <app-input text="Tecnologias">
-                <app-select [type]="type"></app-select>
+                <app-select [type]="type" (technologyListChanged)="onTechnologyListChanged($event)"></app-select>
             </app-input>
+            <div *ngIf="technologiesForm?.invalid" class="form-error-message" [hidden] = "technologiesForm.valid || technologiesForm.pristine && (technologiesForm.touched || technologiesForm.touched)">
+                <app-text *ngIf="technologiesForm?.errors?.['required']" text="SE REQUIERE TECNOLOGIAS"></app-text>
+                <app-text *ngIf="technologiesForm?.errors?.['maxlength']" text="EL MAXIMO DE TECNOLOGIAS SON 20"></app-text>
+                <app-text *ngIf="technologiesForm?.errors?.['minlength']" text="EL MINIMO DE TECNOLOGIAS SON 3"></app-text>
+            </div>
         }
         <app-button className="submit-button {{ formCreate.invalid ? 'submit-button__disabled' : '' }}" (buttonClick)="onSubmit()" [disabled]="formCreate.invalid">Crear</app-button>
     </form>

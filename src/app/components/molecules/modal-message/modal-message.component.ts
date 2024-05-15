@@ -4,13 +4,14 @@ import { RouteImages } from '../../../util/route.images';
 import { TextComponent } from "../../atoms/text/text.component";
 import { ButtonComponent } from "../../atoms/button/button.component";
 import { SwitchService } from '../../../api/switch.service';
+import { AtomsModule } from '../../atoms/atoms.module';
 
 @Component({
     selector: 'app-modal-message',
     standalone: true,
     templateUrl: './modal-message.component.html',
     styleUrl: './modal-message.component.css',
-    imports: [NgIf, TextComponent, ButtonComponent]
+    imports: [NgIf, AtomsModule]
 })
 export class ModalMessageComponent implements OnInit{
 

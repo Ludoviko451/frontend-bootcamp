@@ -2,9 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { ITechnology } from '../shared/models/technology.interface';
 import { environment } from '../environments/environmen.development';
-import { tap } from 'rxjs';
 import { ICapacity } from '../shared/models/capacity.interface';
-
+import { ICapacityRequest } from '../shared/models/capacity.request';
+import { SwitchService } from './switch.service';
+import { Response } from '../shared/models/response';
 @Injectable({providedIn: 'root'})
 export class CapacityService {
 
@@ -35,7 +36,10 @@ export class CapacityService {
         this.size = size
     }
 
+    public postResponse:Response = {} as Response;
 
+    
+    modalSS = inject(SwitchService);
     
     constructor() {
         this.getCapacities();
@@ -43,4 +47,21 @@ export class CapacityService {
     public getCapacities() {
         return this._http.get<ICapacity[]>(`${this._endpoint}?page=${this.page}&size=${this.size}&sortBy=${this.order}&technologies=true&field=name`)
     }
+
+    public postCapacity(newCapacity: ICapacityRequest): void {
+        this._http.post<ICapacityRequest>(this._endpoint, newCapacity)
+          .subscribe({
+            next: (createdCapacity: ICapacityRequest) => {
+              this.modalSS.$postTechnology.next(createdCapacity)
+              this.postResponse.status = 201
+              this.postResponse.message = "¡Tecnologia Creada!"
+              this.modalSS.$postTechnology.next(this.postResponse)
+            },
+            error: (error) => {
+              console.log(newCapacity)
+              this.postResponse = error
+              this.modalSS.$postTechnology.next(this.postResponse)
+            }
+          });
+      }
 }

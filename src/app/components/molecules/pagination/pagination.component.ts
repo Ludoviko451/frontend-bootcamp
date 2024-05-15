@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ButtonComponent } from "../../atoms/button/button.component";
+import { AtomsModule } from '../../atoms/atoms.module';
 
 @Component({
     selector: 'app-pagination',
     templateUrl: './pagination.component.html',
     styleUrls: ['./pagination.component.css'],
     standalone: true,
-    imports: [CommonModule, ButtonComponent]
+    imports: [CommonModule, AtomsModule]
 })
 export class PaginationComponent implements OnInit {
   @Output() pageChanged: EventEmitter<number> = new EventEmitter<number>();

@@ -2,8 +2,12 @@
 
 
     <div class="options-container">
-        <app-button (buttonClick)="changeOrder()" className="open-button ">{{this.order}}</app-button>
-        <app-size-changer (sizeChanged)="onSizeChanged($event)"></app-size-changer>
+        <div class="options-container--button">
+            <app-button (buttonClick)="changeOrder()" className="open-button ">{{this.order}}</app-button>
+        </div>
+        <div class="options-container--size">
+            <app-size-changer (sizeChanged)="onSizeChanged($event)"></app-size-changer>
+        </div>
     </div>
 
     <div class="card-container">
@@ -37,7 +41,7 @@
     </div>
 
     <div *ngIf="modalSwitch == true">
-        <app-modal-form type="Capacidad"></app-modal-form>
+        <app-modal-form type="Tecnologia"></app-modal-form>
     </div>
 </main>
 

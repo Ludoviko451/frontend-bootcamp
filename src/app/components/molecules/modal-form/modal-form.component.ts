@@ -13,13 +13,16 @@ import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { SelectComponent } from "../select/select.component";
+import { AtomsModule } from '../../atoms/atoms.module';
+import { ICapacityRequest } from '../../../shared/models/capacity.request';
+import { CapacityService } from '../../../api/capacity.service';
 
 @Component({
     selector: 'app-modal-form',
     standalone: true,
     templateUrl: './modal-form.component.html',
     styleUrl: './modal-form.component.css',
-    imports: [InputComponent, FormsModule, ButtonComponent, TextComponent, ReactiveFormsModule, NgIf, AsyncPipe, SelectComponent]
+    imports: [InputComponent, FormsModule, AtomsModule, ReactiveFormsModule, NgIf, AsyncPipe, SelectComponent]
 })
 export class ModalFormComponent implements OnInit {
 
@@ -27,7 +30,9 @@ export class ModalFormComponent implements OnInit {
     }
 
     technologySvc = inject(TechnologyService);
-
+    
+    capacitySvc = inject(CapacityService);
+    public technologies:ITechnology[] = []
     public technologyList$!: Observable<ITechnology[]>;
     ngOnInit(): void {
         this.technologyList$ = this.technologySvc.getTechnologies().pipe(
@@ -50,9 +55,14 @@ export class ModalFormComponent implements OnInit {
         return this.formCreate.get('description') as FormControl;
     }
 
+    get technologiesForm(){
+        return this.formCreate.get('technologiesForm') as FormControl;
+    }
+
     formCreate = this.fb.group({
         name: ['', [Validators.required, Validators.maxLength(50)]],
-        description: ['', [Validators.required, Validators.maxLength(90)]]
+        description: ['', [Validators.required, Validators.maxLength(90)]],
+        technologiesForm: [this.technologies, [Validators.required, Validators.maxLength(20), Validators.minLength(3)]],
         
     })
 
@@ -69,20 +79,32 @@ export class ModalFormComponent implements OnInit {
 
 
     newTechnology:ITechnologyRequest = {} as ITechnologyRequest
-
+    newCapacity:ICapacityRequest = {} as ICapacityRequest
 
     onSubmit(){
-        this.newTechnology.name = this.formCreate.value.name
-        this.newTechnology.description = this.formCreate.value.description
+        if(this.type == "Capacidad"){
+            this.newCapacity.name = this.formCreate.value.name
+            this.newCapacity.description = this.formCreate.value.description
+            this.newCapacity.technologyList = this.technologies
 
-        this.technologySvc.postTechnology(this.newTechnology)
+            console.log(this.newCapacity)
+            this.capacitySvc.postCapacity(this.newCapacity)
+            this.formCreate.reset()
+        }
+        // this.newTechnology.name = this.formCreate.value.name
+        // this.newTechnology.description = this.formCreate.value.description
+        // this.technologySvc.postTechnology(this.newTechnology)
 
-        console.log(this.formCreate.value);
-        this.formCreate.reset();
+        // console.log(this.formCreate.value);
+        // this.formCreate.reset();
 
-        //Agregar mensaje de creado
+        // //Agregar mensaje de creado
         this.modalSS.$modalMessage.emit(true)
         this.modalSS.$modal.emit(false)
     }
 
+    onTechnologyListChanged(technologies: ITechnology[]): void {
+        this.technologies = technologies ?? [];  // Use empty array if technologies is nullish
+        this.formCreate.get('technologiesForm')?.setValue(this.technologies);
+      }
 }

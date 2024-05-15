@@ -1,5 +1,5 @@
 <ul class="size-container">
-    <div class="actual-size" (click)="openOptions()">{{actualSize}} - por página <img class="arrow" src="{{route.ARROW}}"> </div>
+    <div class="actual-size" (click)="openOptions()">{{actualSize}} - por página <img class="arrow" src="{{route.ARROW}}" alt="Arrow"> </div>
     <div class="{{optionsSwitch}}">
     @for (item of options; track item.value) {
         <li value={{item.value}} class="options-container--item" (click)="changeSize(item.value)">{{item.label}}</li>

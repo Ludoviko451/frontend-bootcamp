@@ -12,12 +12,13 @@ import { PaginationComponent } from "../../molecules/pagination/pagination.compo
 import { ModalFormComponent } from "../../molecules/modal-form/modal-form.component";
 import { Response } from '../../../shared/models/response';
 import { SwitchService } from '../../../api/switch.service';
+import { AtomsModule } from '../../atoms/atoms.module';
 @Component({
     selector: 'app-capacity',
     standalone: true,
     templateUrl: './capacity.component.html',
     styleUrl: './capacity.component.css',
-    imports: [CommonModule, AsyncPipe, CardComponent, TextComponent, SizeChangerComponent, ModalMessageComponent, ButtonComponent, PaginationComponent, ModalFormComponent]
+    imports: [CommonModule, AsyncPipe, CardComponent, SizeChangerComponent, ModalMessageComponent, AtomsModule, PaginationComponent, ModalFormComponent]
 })
   export class CapacityComponent implements OnInit {
 
